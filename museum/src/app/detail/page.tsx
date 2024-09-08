@@ -30,22 +30,29 @@ export default function DetailPage() {
 
   return (
     <>
-      <div className="overflow-x-scroll w-[1000px]" ref={containerRef}>
-        <ul className="flex">
-          {history01.map((item, index) => (
-            <li key={item.id}>
-              <Image
+    <div className="l-history">
+      <div className="l-history__inner pt-24 pb-12">
+        <div className="overflow-x-scroll h-screen" ref={containerRef}>
+          <ul className="flex px-12" style={{ minWidth: `${history01.length * 1024}px` }}>
+            {history01.map((item, index) => (
+              <li key={item.id} className="mr-32">
+                <Image
                   src={item.image}
                   alt={item.title}
-                  className="dark:invert"
+                  className="l-history__image mb-12"
                   priority
                   width={600}
-                  height={400}
+                  height={300}
                 />
-            </li>
-          ))}
-        </ul>
+                <p className="text-3xl mb-4">{item.title}</p>
+                <p className="text-2xl">{item.date}</p>
+                <p className="text-2xl">{item.text}</p>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
+    </div>
     </>
   );
 }
