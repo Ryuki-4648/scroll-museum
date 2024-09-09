@@ -1,11 +1,16 @@
 "use client"
 
 import Image from "next/image";
-import "../globals.css";
-import { useRef, useEffect } from "react";
+import "../globals.scss";
+import { useRef, useEffect, useState } from "react";
 import history01 from "../../data/history01.json";
 
 export default function DetailPage() {
+
+  /** 見出し */
+  const [displayIndex, setDisplayIndex] = useState(true);
+
+  /** 横スクロール */
   const containerRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
@@ -13,6 +18,9 @@ export default function DetailPage() {
       if (event.deltaY !== 0 && containerRef.current) {
         event.preventDefault();
         containerRef.current.scrollLeft += event.deltaY;
+        setDisplayIndex(false)
+      } else {
+        setDisplayIndex(true)
       }
     };
 
@@ -31,8 +39,9 @@ export default function DetailPage() {
   return (
     <>
     <div className="l-history">
-      <div className="l-history__inner pt-24 pb-12">
-        <div className="overflow-x-scroll h-screen" ref={containerRef}>
+      <div className="l-history__inner">
+        {displayIndex && (<h1 className="absolute -left-[200px] top-56 rotate-90 text-[120px] leading-none">GROOM</h1>)}
+        <div className="overflow-x-scroll h-screen flex items-center" ref={containerRef}>
           <ul className="flex px-12" style={{ minWidth: `${history01.length * 1024}px` }}>
             {history01.map((item, index) => (
               <li key={item.id} className="mr-32">

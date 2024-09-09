@@ -17,17 +17,23 @@
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
+.l- {
+  &history {
+    background: transparent;
+    background-image: url('/bg01.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100vh;
+    &__inner {
+  
+    }
+    &__image {
+      object-fit: contain;
+      width: 600px;
+      height: 400px;
+    }
   }
 }
