@@ -52,9 +52,9 @@ export default function DetailPage() {
                   height={300}
                 />
                 <div className="w-full">
-                  <p className="text-3xl mb-4">{item.title}</p>
-                  <p className="text-2xl">{item.date}</p>
-                  <p className="text-2xl">{item.text}</p>
+                  <p className="text-3xl mb-4 text-white">{item.title}</p>
+                  <p className="text-2xl text-white">{item.date}</p>
+                  <p className="text-2xl text-white">{item.text}</p>
                 </div>
               </li>
             ))}
