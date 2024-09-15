@@ -11,12 +11,17 @@ const config: Config = {
       colors: {
         'bg01' : '#b2b2b2',
         'text01': '#333',
+        'accent01': '#876e32',
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
+      fontFamily: {
+        ten: ["Ten Mincho", "serif"],
+        cabin: ["Cabin", "sans-serif"],
+      }
     },
   },
   plugins: [],
