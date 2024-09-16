@@ -10,8 +10,12 @@ import Image from "next/image";
 import dayjs from "dayjs";
 import Lenis from '@studio-freight/lenis'
 import { useEffect } from "react";
+import { useRouter } from "next/navigation"; // next/routerの場合NextRouter was not mounted.のエラーとなる
 
 export default function Home() {
+
+  const router = useRouter()
+
   /** 慣性スクロール */
   useEffect(() => { // クライアントサイドでのみ実行
     const lenis = new Lenis({
@@ -28,8 +32,10 @@ export default function Home() {
     requestAnimationFrame(raf)
   }, []) // コンポーネントのマウント時にのみ実行
 
+  /** どちらかを選択して詳細に遷移させる */
   const handleSelected = (selection: string) => (event: React.MouseEvent<HTMLAnchorElement>) => {
-    // Handle the selection here
+    event.preventDefault()
+    router.push(`/detail?selection=${selection}`) // 選択した情報をURLのクエリパラメータに含める
   }
 
   return (
