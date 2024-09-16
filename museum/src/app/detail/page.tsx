@@ -45,10 +45,14 @@ export default function DetailPage() {
     <>
       <div className="l-history">
         <div className="l-history__inner">
-          <p className="text-[20px] tracking-wider w-full flex text-gray-50 absolute top-8 left-4">Chapter<span className="mx-1">1.</span></p>
+          <p className="text-[20px] tracking-wider w-full flex text-gray-50 absolute top-8 left-4">
+            Chapter<span className="mx-1">{selectedItem === 'groom' ? '1.' : '2.'}</span>
+          </p>
           <div className="overflow-x-scroll flex items-center l-history__wrap" ref={containerRef}>
             <div className="l-history__index h-screen flex items-center border-r-2 border-white">
-              <h1 className="rotate-90 text-[120px] leading-none text-gray-50 drop-shadow-lg">{selectedItem?.toUpperCase()}</h1>
+              <h1 className="rotate-90 text-[120px] leading-none text-gray-50 drop-shadow-lg">
+                {selectedItem?.toUpperCase()}
+              </h1>
             </div>
             <ul className="flex items-center l-history__list" style={{ minWidth: `${history01.length * 1024}px` }}>
               {displayData.map((item: any, index: number) => (
@@ -69,7 +73,11 @@ export default function DetailPage() {
                 </li>
               ))}
             </ul>
-            <div className="l-history__last">BRIDE</div>
+            {selectedItem === 'groom' && (
+              <div className="l-history__last">
+                <a href="">BRIDE</a>
+              </div>
+            )}
           </div>
         </div>
       </div>

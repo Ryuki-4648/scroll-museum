@@ -41,67 +41,65 @@ export default function Home() {
   return (
     <main className="pt-36 pb-[20rem] bg-bg01 font-mono relative">
 
-        <p className="text-center text-[2rem] font-cabin leading-3 tracking-widest">Our Profile and History</p>
-        <p className="absolute left-24 top-[30rem] text-[8.2rem] font-ten">生い立ちと<br />プロフィール</p>
-        {/* <p className="text-[6rem] w-full text-center">INTRO</p> */}
-        {/* <p className="font-ten text-[3rem] opacity-20">皆様には ご健勝のこととお慶び申し上げます<br />このたび お越しいただき誠にありがとうございます<br />つきましては<br />ご挨拶をかねて心ばかりの小宴を催したいと思います</p> */}
+      <p className="text-center text-[2rem] font-cabin leading-3 tracking-widest">Our Profile and History</p>
+      <p className="absolute left-24 top-[30rem] text-[8.2rem] font-ten">生い立ちと<br />プロフィール</p>
+      {/* <p className="text-[6rem] w-full text-center">INTRO</p> */}
+      {/* <p className="font-ten text-[3rem] opacity-20">皆様には ご健勝のこととお慶び申し上げます<br />このたび お越しいただき誠にありがとうございます<br />つきましては<br />ご挨拶をかねて心ばかりの小宴を催したいと思います</p> */}
 
-        <section className="absolute right-0 top-[80rem] flex" id="section-bride">
-          <p className="text-[11rem] mr-[24rem] font-ten w-full leading-none tracking-widest">
-            {process.env.NEXT_PUBLIC_BRIDE_NAME}
-          </p>
-          <Image
-            src="/prod/img_bride01.jpg"
-            alt="Picture of the author"
-            className="rounded-tl-[14rem]"
-            width={600}
-            height={300}
-          />
-          <div className="absolute -left-[0rem] top-[14rem]">
-            <ul className="text-[2.8rem] font-ten leading-loose">
-              <li>{dayjs(process.env.NEXT_PUBLIC_BRIDE_BIRTHDAY).format('YYYY年M月DD日')}生まれ</li>
-              <li>出身：{process.env.NEXT_PUBLIC_BRIDE_BIRTH_PLACE}</li>
-              <li>血液型：{process.env.NEXT_PUBLIC_BRIDE_BLOOD_TYPE}</li>
-              <li>職業：{process.env.NEXT_PUBLIC_BRIDE_OCCUPATION}</li>
-              <li>趣味：{process.env.NEXT_PUBLIC_BRIDE_HOBBY}</li>
-              <li>好きなもの：{process.env.NEXT_PUBLIC_BRIDE_FAVORITE01}<br />{process.env.NEXT_PUBLIC_BRIDE_FAVORITE02}</li>
-            </ul>
-          </div>
-          <div className="absolute right-[22rem] top-[16rem] block rotate-90 hover:text-accent01 duration-500">
-            <a href="/detail" className="text-[16.5rem] leading-none font-cabin tracking-wider" onClick={handleSelected('bride')}>
-              BRIDE
-            </a>
-          </div>
-        </section>
+      <section className="mt-[60rem] flex items-baseline relative" id="section-groom">
+        <Image
+          src="/prod/img_groom01.jpg"
+          alt="Picture of the author"
+          className="mt-[40rem] rounded-tr-[14rem]"
+          width={600}
+          height={300}
+        />
+        <div className="absolute bottom-[0rem] left-[54rem] hover:text-accent01 duration-500">
+          <a href="/detail" className="text-[16rem] leading-none font-cabin" onClick={handleSelected('groom')}>GROOM</a>
+        </div>
+        <p className="text-[9.5rem] font-ten c-textVertical ml-[2.5rem] leading-none tracking-widest">
+          {process.env.NEXT_PUBLIC_GROOM_NAME}
+        </p>
+        <div className="absolute ml-[55rem] bottom-[18rem]">
+          <ul className="text-[2.8rem] font-ten leading-loose">
+            <li>{dayjs(process.env.NEXT_PUBLIC_GROOM_BIRTHDAY).format('YYYY年M月DD日')}生まれ</li>
+            <li>出身：{process.env.NEXT_PUBLIC_GROOM_BIRTH_PLACE}</li>
+            <li>血液型：{process.env.NEXT_PUBLIC_GROOM_BLOOD_TYPE}</li>
+            <li>職業：{process.env.NEXT_PUBLIC_GROOM_OCCUPATION}</li>
+            <li>趣味：{process.env.NEXT_PUBLIC_GROOM_HOBBY}</li>
+            <li>好きなもの：{process.env.NEXT_PUBLIC_GROOM_FAVORITE01}<br />{process.env.NEXT_PUBLIC_GROOM_FAVORITE02}</li>
+          </ul>
+        </div>
+      </section>
 
-        <section className="mt-[120rem] flex items-baseline" id="section-groom">
-          <Image
-            src="/prod/img_groom01.jpg"
-            alt="Picture of the author"
-            className="mt-[40rem] rounded-tr-[14rem]"
-            width={600}
-            height={300}
-          />
-          <div className="absolute bottom-[62rem] left-[54rem] hover:text-accent01 duration-500">
-            <a href="/detail" className="text-[16rem] leading-none font-cabin" onClick={handleSelected('groom')}>GROOM</a>
-          </div>
-          <p className="text-[9.5rem] font-ten c-textVertical ml-[2.5rem] leading-none tracking-widest">
-            {process.env.NEXT_PUBLIC_GROOM_NAME}
-          </p>
-          <div className="absolute ml-[55rem] bottom-[22rem]">
-            <ul className="text-[2.8rem] font-ten leading-loose">
-              <li>{dayjs(process.env.NEXT_PUBLIC_GROOM_BIRTHDAY).format('YYYY年M月DD日')}生まれ</li>
-              <li>出身：{process.env.NEXT_PUBLIC_GROOM_BIRTH_PLACE}</li>
-              <li>血液型：{process.env.NEXT_PUBLIC_GROOM_BLOOD_TYPE}</li>
-              <li>職業：{process.env.NEXT_PUBLIC_GROOM_OCCUPATION}</li>
-              <li>趣味：{process.env.NEXT_PUBLIC_GROOM_HOBBY}</li>
-              <li>好きなもの：{process.env.NEXT_PUBLIC_GROOM_FAVORITE01}<br />{process.env.NEXT_PUBLIC_GROOM_FAVORITE02}</li>
-            </ul>
-          </div>
-        </section>
+      <section className="relative mt-[30rem] flex" id="section-bride">
+        <p className="text-[11rem] ml-[6rem] font-ten w-full leading-none tracking-widest">
+          {process.env.NEXT_PUBLIC_BRIDE_NAME}
+        </p>
+        <Image
+          src="/prod/img_bride01.jpg"
+          alt="Picture of the author"
+          className="rounded-tl-[14rem]"
+          width={600}
+          height={300}
+        />
+        <div className="absolute left-[6rem] top-[14rem]">
+          <ul className="text-[2.8rem] font-ten leading-loose">
+            <li>{dayjs(process.env.NEXT_PUBLIC_BRIDE_BIRTHDAY).format('YYYY年M月DD日')}生まれ</li>
+            <li>出身：{process.env.NEXT_PUBLIC_BRIDE_BIRTH_PLACE}</li>
+            <li>血液型：{process.env.NEXT_PUBLIC_BRIDE_BLOOD_TYPE}</li>
+            <li>職業：{process.env.NEXT_PUBLIC_BRIDE_OCCUPATION}</li>
+            <li>趣味：{process.env.NEXT_PUBLIC_BRIDE_HOBBY}</li>
+            <li>好きなもの：{process.env.NEXT_PUBLIC_BRIDE_FAVORITE01}<br />{process.env.NEXT_PUBLIC_BRIDE_FAVORITE02}</li>
+          </ul>
+        </div>
+        <div className="absolute right-[22rem] top-[16rem] block rotate-90 hover:text-accent01 duration-500">
+          <a href="/detail" className="text-[17rem] leading-none font-cabin tracking-wide" onClick={handleSelected('bride')}>
+            BRIDE
+          </a>
+        </div>
+      </section>
         
-      
-
     </main>
   );
 }
