@@ -14,7 +14,12 @@ import { useEffect } from "react";
 export default function Home() {
   /** 慣性スクロール */
   useEffect(() => { // クライアントサイドでのみ実行
-    const lenis = new Lenis()
+    const lenis = new Lenis({
+      lerp: 0.08, // スクロールの速さ、デフォルトは 0.1
+      duration: 1.2, // アニメーションの長さ（秒）, 一定時間でスクロールを終える
+      // smoothWheel: true,  マウスホイールでのスクロールをスムーズにするか, デフォルトは true
+      // smoothTouch: false, タッチデバイスでのスクロールをスムーズにするか, デフォルトは false
+    })
     function raf(time: number) {
       lenis.raf(time)
       requestAnimationFrame(raf)
@@ -22,6 +27,10 @@ export default function Home() {
     
     requestAnimationFrame(raf)
   }, []) // コンポーネントのマウント時にのみ実行
+
+  const handleSelected = (selection: string) => (event: React.MouseEvent<HTMLAnchorElement>) => {
+    // Handle the selection here
+  }
 
   return (
     <main className="pt-36 pb-[20rem] bg-bg01 font-mono relative">
@@ -53,7 +62,7 @@ export default function Home() {
             </ul>
           </div>
           <div className="absolute right-[22rem] top-[16rem] block rotate-90 hover:text-accent01 duration-500">
-            <a href="" className="text-[16.5rem] leading-none font-cabin tracking-wider">
+            <a href="/detail" className="text-[16.5rem] leading-none font-cabin tracking-wider" onClick={handleSelected('bride')}>
               BRIDE
             </a>
           </div>
@@ -68,7 +77,7 @@ export default function Home() {
             height={300}
           />
           <div className="absolute bottom-[62rem] left-[54rem] hover:text-accent01 duration-500">
-            <a href="" className="text-[16rem] leading-none font-cabin">GROOM</a>
+            <a href="/detail" className="text-[16rem] leading-none font-cabin" onClick={handleSelected('groom')}>GROOM</a>
           </div>
           <p className="text-[9.5rem] font-ten c-textVertical ml-[2.5rem] leading-none tracking-widest">
             {process.env.NEXT_PUBLIC_GROOM_NAME}
