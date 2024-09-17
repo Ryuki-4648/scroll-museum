@@ -16,8 +16,9 @@ export default function Home() {
 
   const router = useRouter()
 
-  /** 慣性スクロール */
   useEffect(() => { // クライアントサイドでのみ実行
+
+    /** 慣性スクロール */
     const lenis = new Lenis({
       lerp: 0.08, // スクロールの速さ、デフォルトは 0.1
       duration: 1.2, // アニメーションの長さ（秒）, 一定時間でスクロールを終える
@@ -39,14 +40,18 @@ export default function Home() {
   }
 
   return (
-    <main className="pt-36 pb-[20rem] bg-bg01 font-mono relative">
+    <main className="pt-36 pb-[80rem] bg-bg01 font-mono relative">
 
       <p className="text-center text-[2rem] font-cabin leading-3 tracking-widest">Our Profile and History</p>
       <p className="absolute left-24 top-[30rem] text-[8.2rem] font-ten">生い立ちと<br />プロフィール</p>
       {/* <p className="text-[6rem] w-full text-center">INTRO</p> */}
       {/* <p className="font-ten text-[3rem] opacity-20">皆様には ご健勝のこととお慶び申し上げます<br />このたび お越しいただき誠にありがとうございます<br />つきましては<br />ご挨拶をかねて心ばかりの小宴を催したいと思います</p> */}
 
-      <section className="mt-[60rem] flex items-baseline relative" id="section-groom">
+      <section className="text-center text-[6rem] font-cabin tracking-wider pt-[70rem]" id="section-groom">
+        <p>Chapter 1</p>
+      </section>
+
+      <section className="flex items-baseline relative" id="section-groom">
         <Image
           src="/prod/img_groom01.jpg"
           alt="Picture of the author"
@@ -72,7 +77,11 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="relative mt-[30rem] flex" id="section-bride">
+      <section className="text-center text-[6rem] font-cabin tracking-wider pt-[30rem]" id="section-bride">
+        <p>Chapter 2</p>
+      </section>
+
+      <section className="relative mt-[30rem] flex">
         <p className="text-[11rem] ml-[6rem] font-ten w-full leading-none tracking-widest">
           {process.env.NEXT_PUBLIC_BRIDE_NAME}
         </p>
@@ -98,6 +107,10 @@ export default function Home() {
             BRIDE
           </a>
         </div>
+      </section>
+
+      <section className="mt-[30rem]" id="section-end">
+        <h2>hoge</h2>
       </section>
         
     </main>
