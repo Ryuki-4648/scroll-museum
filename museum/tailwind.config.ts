@@ -12,6 +12,8 @@ const config: Config = {
         'bg01' : '#b2b2b2',
         'text01': '#333',
         'accent01': '#876e32',
+        'light-gray': '#ededed',
+        'midium-gray': '#8f8f8f',
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",

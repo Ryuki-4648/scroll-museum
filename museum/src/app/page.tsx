@@ -10,9 +10,8 @@ import Image from "next/image";
 import dayjs from "dayjs";
 import Lenis from '@studio-freight/lenis'
 import { useEffect, useRef } from "react";
-import { useRouter } from "next/navigation"; // next/routerの場合NextRouter was not mounted.のエラーとなる
-import { useInView } from "react-intersection-observer";
-
+import { useRouter } from "next/navigation";
+import CustomCursor from "./CustomCursor";
 
 const useTypingObserver = () => {
   const observer = useRef<IntersectionObserver | null>(null);
@@ -72,6 +71,7 @@ export default function Home() {
 
   return (
     <main className="pt-36 pb-[80rem] bg-bg01 font-mono relative">
+      <CustomCursor />
 
       <p className="text-center text-[2rem] font-cabin leading-3 tracking-widest">
         Our Profile and History
