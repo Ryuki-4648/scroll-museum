@@ -2,57 +2,89 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
-}
-
 body {
   margin: 0;
   padding: 0;
 }
 
+.typing-item {
+  opacity: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  border-right: 0.15em solid;
+  transition: opacity 0.5s ease-in-out;
+  &.is-visible {
+    opacity: 1;
+    animation: typing 3.5s steps(40, end) forwards, blink-caret 0.75s step-end infinite;
+  }
+}
+
+@keyframes typing {
+  from {
+    width: 0;
+    opacity: 1;
+  }
+  to {
+    width: 100%;
+    opacity: 1;
+  }
+}
+
+@keyframes blink-caret {
+  from, to {
+    border-color: transparent;
+  }
+  50% {
+    border-color: black;
+  }
+}
+
+
 .l- {
   &history {
     background: transparent;
-    // background-image: url('/bg01.png');
-    // background-repeat: no-repeat;
-    // background-size: cover;
     height: 100vh;
     &__wrap {
-      //scrollbar-color: rgba(#179498, 1) transparent;
-      //scrollbar-width: thin;
       scroll-behavior: smooth;
       scroll-snap-type: y mandatory;
     }
     &__index, &__last {
-      background-image: url('/bg_history01.jpg');
       background-repeat: no-repeat;
       background-size: 100vh;
+      &.color01 {
+        background-image: url('/bg_history01.jpg');
+      }
+      &.color02 {
+        background-image: url('/bg_history02.jpg');
+      }
     }
     &__item {
-      background-image: url('/bg_light01.png'), url('/bg_history01.jpg');
       background-repeat: no-repeat, repeat;
       background-position: 50% 0, 0;
       background-size: 130%, 100vh;
       margin-left: -1px;
-      //padding: 100px 140px;
       text-align: center;
       scroll-snap-align: start;
+      &.color01 {
+        background-image: url('/bg_light01.png'), url('/bg_history01.jpg');
+      }
+      &.color02 {
+        background-image: url('/bg_light01.png'), url('/bg_history02.jpg');
+      }
     }
     &__image {
       object-fit: contain;
       width: 600px;
       height: 400px;
+    }
+  }
+}
+
+.c- {
+  &text {
+    &Vertical {
+      -ms-writing-mode: tb-rl;
+      writing-mode: vertical-rl;
     }
   }
 }
