@@ -13,46 +13,18 @@ import { useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import CustomCursor from "./CustomCursor";
 
-// const useTypingObserver = () => {
-//   const observer = useRef<IntersectionObserver | null>(null);
-
-//   useEffect(() => {
-//     observer.current = new IntersectionObserver(
-//       (entries) => {
-//         entries.forEach((entry, index) => {
-//           if (entry.isIntersecting) {
-//             setTimeout(() => {
-//               entry.target.classList.add("is-visible")
-//             }, index * 30000)
-//             observer.current?.unobserve(entry.target)
-//           }
-//         });
-//       },
-//       { threshold: 0.8 }
-//     );
-
-//     const items = document.querySelectorAll(".typing-item");
-//     items.forEach((item) => observer.current?.observe(item));
-
-//     return () => {
-//       observer.current?.disconnect();
-//     };
-//   }, []);
-// };
-
 const typeWriter = (el: HTMLElement) => {
   const text = el.innerHTML;
+  el.innerHTML = '';
   (function _type(i = 0) {
     if (i === text.length) return;
     el.innerHTML = text.substring(0, i + 1) + '<span aria-hidden="true"></span>';
-    setTimeout(() => _type(i + 1), 150);
+    setTimeout(() => _type(i + 1), 80); // msごとに1文字ずつ追加
   })();
 };
 
 
 export default function Home() {
-
-  //useTypingObserver();
 
   const router = useRouter()
 
@@ -70,7 +42,7 @@ export default function Home() {
       const observer = new IntersectionObserver((items) => {
         items.forEach((item) => {
           if (item.isIntersecting) {
-            typeWriter(item.target as HTMLElement); // タイピングアニメーションを実行
+            typeWriter(item.target as HTMLElement);
           } else {
             item.target.classList.remove("typing");
           }
@@ -109,17 +81,11 @@ export default function Home() {
     <main className="pt-36 pb-[80rem] bg-bg01 font-mono relative">
       <CustomCursor />
 
-      <p className="text-center text-[2rem] font-cabin leading-3 tracking-widest">
-        Our Profile and History
-      </p>
-      <p className="absolute left-24 top-[30rem] text-[8.2rem] font-ten">
-        生い立ちと<br />プロフィール
-      </p>
+      <p className="text-center text-[2rem] font-cabin leading-3 tracking-widest">Our Profile and History</p>
+      <p className="absolute left-24 top-[30rem] text-[8.2rem] font-ten">生い立ちと<br />プロフィール</p>
       <p className="absolute left-24 top-[30rem] text-[8.2rem] font-ten fade-in">生い立ちと<br />プロフィール</p>
-      {/* <p className="text-[6rem] w-full text-center">INTRO</p> */}
-      {/* <p className="font-ten text-[3rem] opacity-20">皆様には ご健勝のこととお慶び申し上げます<br />このたび お越しいただき誠にありがとうございます<br />つきましては<br />ご挨拶をかねて心ばかりの小宴を催したいと思います</p> */}
 
-      <section className="text-center text-[6rem] font-cabin tracking-wider pt-[70rem]" id="section-groom">
+      <section className="text-center text-[6rem] font-ten tracking-wider pt-[70rem]" id="section-groom">
         <p>Chapter 1</p>
       </section>
 
@@ -150,7 +116,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="text-center text-[6rem] font-cabin tracking-wider pt-[30rem]" id="section-bride">
+      <section className="text-center text-[6rem] font-ten tracking-wider pt-[30rem]" id="section-bride">
         <p>Chapter 2</p>
       </section>
 
@@ -174,14 +140,6 @@ export default function Home() {
             趣味：{process.env.NEXT_PUBLIC_BRIDE_HOBBY}<br />
             好きなもの：{process.env.NEXT_PUBLIC_BRIDE_FAVORITE01}<br />{process.env.NEXT_PUBLIC_BRIDE_FAVORITE02}
           </p>
-          {/* <ul className="text-[2.8rem] font-ten leading-loose typing-list">
-            <li className="typing-item">{dayjs(process.env.NEXT_PUBLIC_BRIDE_BIRTHDAY).format('YYYY年M月DD日')}生まれ</li>
-            <li className="typing-item">出身：{process.env.NEXT_PUBLIC_BRIDE_BIRTH_PLACE}</li>
-            <li className="typing-item">血液型：{process.env.NEXT_PUBLIC_BRIDE_BLOOD_TYPE}</li>
-            <li className="typing-item">職業：{process.env.NEXT_PUBLIC_BRIDE_OCCUPATION}</li>
-            <li className="typing-item">趣味：{process.env.NEXT_PUBLIC_BRIDE_HOBBY}</li>
-            <li className="typing-item">好きなもの：{process.env.NEXT_PUBLIC_BRIDE_FAVORITE01}<br />{process.env.NEXT_PUBLIC_BRIDE_FAVORITE02}</li>
-          </ul> */}
         </div>
         <div className="absolute right-[22rem] top-[16rem] block rotate-90 hover:text-accent01 duration-500">
           <a href="/detail" className="text-[17rem] leading-none font-cabin tracking-wide" onClick={handleSelected('bride')}>

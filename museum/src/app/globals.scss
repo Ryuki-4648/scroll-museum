@@ -7,38 +7,30 @@ body {
   padding: 0;
 }
 
+/* アニメーション */
 .typing-item {
-  opacity: 0;
-  white-space: nowrap;
-  overflow: hidden;
-  border-right: 0.15em solid;
-  transition: opacity 0.5s ease-in-out;
-  &.is-visible {
-    opacity: 1;
-    animation: typing 3.5s steps(40, end) forwards, blink-caret 0.75s step-end infinite;
-  }
+  text-align: left;
+  margin-bottom: 0;
 }
 
-@keyframes typing {
-  from {
-    width: 0;
-    opacity: 1;
-  }
-  to {
-    width: 100%;
-    opacity: 1;
-  }
+.typing-item > span {
+  border-right: 4px solid #000;
+  animation: caret 1s steps(1) infinite;
 }
 
-@keyframes blink-caret {
-  from, to {
+@keyframes caret {
+  50% {
     border-color: transparent;
   }
-  50% {
-    border-color: black;
-  }
 }
 
+.custom-cursor {
+  transition: width 0.3s ease, height 0.3s ease;
+  &.cursor-large {
+    width: 100px;
+    height: 100px;
+  }
+}
 
 .l- {
   &history {
