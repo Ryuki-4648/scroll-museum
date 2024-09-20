@@ -13,40 +13,76 @@ import { useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import CustomCursor from "./CustomCursor";
 
-const useTypingObserver = () => {
-  const observer = useRef<IntersectionObserver | null>(null);
+// const useTypingObserver = () => {
+//   const observer = useRef<IntersectionObserver | null>(null);
 
-  useEffect(() => {
-    observer.current = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry, index) => {
-          if (entry.isIntersecting) {
-            setTimeout(() => {
-              entry.target.classList.add("is-visible")
-            }, index * 30000)
-            observer.current?.unobserve(entry.target)
-          }
-        });
-      },
-      { threshold: 0.8 }
-    );
+//   useEffect(() => {
+//     observer.current = new IntersectionObserver(
+//       (entries) => {
+//         entries.forEach((entry, index) => {
+//           if (entry.isIntersecting) {
+//             setTimeout(() => {
+//               entry.target.classList.add("is-visible")
+//             }, index * 30000)
+//             observer.current?.unobserve(entry.target)
+//           }
+//         });
+//       },
+//       { threshold: 0.8 }
+//     );
 
-    const items = document.querySelectorAll(".typing-item");
-    items.forEach((item) => observer.current?.observe(item));
+//     const items = document.querySelectorAll(".typing-item");
+//     items.forEach((item) => observer.current?.observe(item));
 
-    return () => {
-      observer.current?.disconnect();
-    };
-  }, []);
+//     return () => {
+//       observer.current?.disconnect();
+//     };
+//   }, []);
+// };
+
+const typeWriter = (el: HTMLElement) => {
+  const text = el.innerHTML;
+  (function _type(i = 0) {
+    if (i === text.length) return;
+    el.innerHTML = text.substring(0, i + 1) + '<span aria-hidden="true"></span>';
+    setTimeout(() => _type(i + 1), 150);
+  })();
 };
+
 
 export default function Home() {
 
-  useTypingObserver();
+  //useTypingObserver();
 
   const router = useRouter()
 
   useEffect(() => { // クライアントサイドでのみ実行
+
+    // IntersectionObserverを設定
+    const doObserve = () => {
+      const targets = document.querySelectorAll(".typing-item");
+      const options = {
+        root: null,
+        rootMargin: "0px",
+        threshold: 0,
+      };
+      
+      const observer = new IntersectionObserver((items) => {
+        items.forEach((item) => {
+          if (item.isIntersecting) {
+            typeWriter(item.target as HTMLElement); // タイピングアニメーションを実行
+          } else {
+            item.target.classList.remove("typing");
+          }
+        });
+      }, options);
+      
+      targets.forEach((target) => {
+        observer.observe(target);
+      });
+    };
+    
+    doObserve();
 
     /** 慣性スクロール */
     const lenis = new Lenis({
@@ -130,14 +166,22 @@ export default function Home() {
           height={300}
         />
         <div className="absolute left-[6rem] top-[14rem]">
-          <ul className="text-[2.8rem] font-ten leading-loose typing-list">
+          <p className="typing-item text-[2.8rem] font-ten leading-loose text-left font-bold">
+            {dayjs(process.env.NEXT_PUBLIC_BRIDE_BIRTHDAY).format('YYYY年M月DD日')}生まれ<br />
+            出身：{process.env.NEXT_PUBLIC_BRIDE_BIRTH_PLACE}<br />
+            血液型：{process.env.NEXT_PUBLIC_BRIDE_BLOOD_TYPE}<br />
+            職業：{process.env.NEXT_PUBLIC_BRIDE_OCCUPATION}<br />
+            趣味：{process.env.NEXT_PUBLIC_BRIDE_HOBBY}<br />
+            好きなもの：{process.env.NEXT_PUBLIC_BRIDE_FAVORITE01}<br />{process.env.NEXT_PUBLIC_BRIDE_FAVORITE02}
+          </p>
+          {/* <ul className="text-[2.8rem] font-ten leading-loose typing-list">
             <li className="typing-item">{dayjs(process.env.NEXT_PUBLIC_BRIDE_BIRTHDAY).format('YYYY年M月DD日')}生まれ</li>
             <li className="typing-item">出身：{process.env.NEXT_PUBLIC_BRIDE_BIRTH_PLACE}</li>
             <li className="typing-item">血液型：{process.env.NEXT_PUBLIC_BRIDE_BLOOD_TYPE}</li>
             <li className="typing-item">職業：{process.env.NEXT_PUBLIC_BRIDE_OCCUPATION}</li>
             <li className="typing-item">趣味：{process.env.NEXT_PUBLIC_BRIDE_HOBBY}</li>
             <li className="typing-item">好きなもの：{process.env.NEXT_PUBLIC_BRIDE_FAVORITE01}<br />{process.env.NEXT_PUBLIC_BRIDE_FAVORITE02}</li>
-          </ul>
+          </ul> */}
         </div>
         <div className="absolute right-[22rem] top-[16rem] block rotate-90 hover:text-accent01 duration-500">
           <a href="/detail" className="text-[17rem] leading-none font-cabin tracking-wide" onClick={handleSelected('bride')}>
