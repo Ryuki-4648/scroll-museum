@@ -6,55 +6,45 @@
  * 必要なのコンポーネントや処理に限定して使うのが良い
  */
 
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
+
 import dayjs from "dayjs";
 import Lenis from '@studio-freight/lenis'
-import { useEffect, useRef } from "react";
-import { useRouter } from "next/navigation";
+
 import CustomCursor from "./CustomCursor";
-
-const typeWriter = (el: HTMLElement) => {
-  const text = el.innerHTML;
-  el.innerHTML = '';
-  (function _type(i = 0) {
-    if (i === text.length) return;
-    el.innerHTML = text.substring(0, i + 1) + '<span aria-hidden="true"></span>';
-    setTimeout(() => _type(i + 1), 80); // msごとに1文字ずつ追加
-  })();
-};
-
 
 export default function Home() {
 
   const router = useRouter()
+  const [displayProfile, setDisplayProfile] = useState(false)
+  const profileRef = useRef<HTMLParagraphElement | null>(null)
+
+  // プロフィール表示をクリック
+  const handleDisplayProfile = () => {
+    setDisplayProfile(true)
+  }
+
+  // プロフィールが表示されたらタイピングアニメーションを実行
+  useEffect(() => {
+    if (displayProfile && profileRef.current) {
+      typeWriter(profileRef.current);
+    }
+  }, [displayProfile]);
+
+  // タイピング風アニメーション
+  const typeWriter = (el: HTMLElement) => {
+    const text = el.innerHTML;
+    el.innerHTML = '';
+    (function _type(i = 0) {
+      if (i === text.length) return;
+      el.innerHTML = text.substring(0, i + 1) + '<span aria-hidden="true"></span>'
+      setTimeout(() => _type(i + 1), 100); // msごとに1文字ずつ追加
+    })();
+  };
 
   useEffect(() => { // クライアントサイドでのみ実行
-
-    // IntersectionObserverを設定
-    const doObserve = () => {
-      const targets = document.querySelectorAll(".typing-item");
-      const options = {
-        root: null,
-        rootMargin: "0px",
-        threshold: 0,
-      };
-      
-      const observer = new IntersectionObserver((items) => {
-        items.forEach((item) => {
-          if (item.isIntersecting) {
-            typeWriter(item.target as HTMLElement);
-          } else {
-            item.target.classList.remove("typing");
-          }
-        });
-      }, options);
-      
-      targets.forEach((target) => {
-        observer.observe(target);
-      });
-    };
-    
-    doObserve();
 
     /** 慣性スクロール */
     const lenis = new Lenis({
@@ -81,11 +71,11 @@ export default function Home() {
     <main className="pt-36 pb-[80rem] bg-bg01 font-mono relative">
       <CustomCursor />
 
-      <p className="text-center text-[2rem] font-cabin leading-3 tracking-widest">Our Profile and History</p>
-      <p className="absolute left-24 top-[30rem] text-[8.2rem] font-ten">生い立ちと<br />プロフィール</p>
-      <p className="absolute left-24 top-[30rem] text-[8.2rem] font-ten fade-in">生い立ちと<br />プロフィール</p>
+      <p className="text-center text-[2.4rem] font-ten leading-3 tracking-widest">Our Profile and History</p>
+      <p className="absolute left-24 top-[60rem] text-[8.2rem] font-ten">生い立ちと<br />プロフィール</p>
+      <p className="absolute left-24 top-[60rem] text-[8.2rem] font-ten fade-in">生い立ちと<br />プロフィール</p>
 
-      <section className="text-center text-[6rem] font-ten tracking-wider pt-[70rem]" id="section-groom">
+      <section className="text-center text-[6rem] font-ten tracking-wider mt-[100rem]" id="section-groom">
         <p>Chapter 1</p>
       </section>
 
@@ -132,14 +122,17 @@ export default function Home() {
           height={300}
         />
         <div className="absolute left-[6rem] top-[14rem]">
-          <p className="typing-item text-[2.8rem] font-ten leading-loose text-left font-bold">
-            {dayjs(process.env.NEXT_PUBLIC_BRIDE_BIRTHDAY).format('YYYY年M月DD日')}生まれ<br />
-            出身：{process.env.NEXT_PUBLIC_BRIDE_BIRTH_PLACE}<br />
-            血液型：{process.env.NEXT_PUBLIC_BRIDE_BLOOD_TYPE}<br />
-            職業：{process.env.NEXT_PUBLIC_BRIDE_OCCUPATION}<br />
-            趣味：{process.env.NEXT_PUBLIC_BRIDE_HOBBY}<br />
-            好きなもの：{process.env.NEXT_PUBLIC_BRIDE_FAVORITE01}<br />{process.env.NEXT_PUBLIC_BRIDE_FAVORITE02}
-          </p>
+          {!displayProfile ?
+            (<p className="text-[3rem] font-ten" onClick={handleDisplayProfile}>Type my profile.</p>) : (
+            <p ref={profileRef} className="typing-item text-[2.8rem] font-ten leading-loose text-left font-bold">
+              {dayjs(process.env.NEXT_PUBLIC_BRIDE_BIRTHDAY).format('YYYY年M月DD日')}生まれ<br />
+              出身：{process.env.NEXT_PUBLIC_BRIDE_BIRTH_PLACE}<br />
+              血液型：{process.env.NEXT_PUBLIC_BRIDE_BLOOD_TYPE}<br />
+              職業：{process.env.NEXT_PUBLIC_BRIDE_OCCUPATION}<br />
+              趣味：{process.env.NEXT_PUBLIC_BRIDE_HOBBY}<br />
+              好きなもの：{process.env.NEXT_PUBLIC_BRIDE_FAVORITE01}<br />{process.env.NEXT_PUBLIC_BRIDE_FAVORITE02}
+            </p>
+          )}
         </div>
         <div className="absolute right-[22rem] top-[16rem] block rotate-90 hover:text-accent01 duration-500">
           <a href="/detail" className="text-[17rem] leading-none font-cabin tracking-wide" onClick={handleSelected('bride')}>
