@@ -50,7 +50,7 @@ export default function DetailPage() {
           </p> */}
           <div className="overflow-x-scroll flex items-center l-history__wrap" ref={containerRef}>
             <div className={`l-history__index h-screen flex items-center w-[15rem] ${selectedItem === 'groom' ? 'color01' : 'color02'}`}>
-              <h1 className="rotate-90 text-[120px] leading-none text-dark-green font-bold drop-shadow-lg">
+              <h1 className="rotate-90 text-[120px] leading-none text-light-gray font-bold drop-shadow-lg">
                 {selectedItem?.toUpperCase()}
               </h1>
             </div>
@@ -76,7 +76,7 @@ export default function DetailPage() {
             </ul>
             {(selectedItem === 'groom' || selectedItem === 'bride') && (
               <div className={`l-history__last h-screen flex items-center w-[150rem] pr-24 ${selectedItem === 'groom' ? 'color01' : 'color02'}`}>
-                <a href={`${selectedItem === 'groom' ? '/#section-bride' : '/#section-end'}`} className="text-[60px] leading-none text-dark-green font-bold drop-shadow-lg w-full">
+                <a href={`${selectedItem === 'groom' ? '/#section-bride' : '/#section-end'}`} className="text-[60px] leading-none text-light-gray font-bold drop-shadow-lg w-full">
                   Chapter<span className="ml-2">{selectedItem === 'groom' ? '2' : '3'}.</span>
                 </a>
               </div>

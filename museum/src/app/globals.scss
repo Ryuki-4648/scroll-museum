@@ -16,6 +16,7 @@ body {
 .typing-item > span {
   border-right: 4px solid #000;
   animation: caret 1s steps(1) infinite;
+    // step: アニメーションがフレーム単位で1回ずつ動作する
 }
 
 @keyframes caret {

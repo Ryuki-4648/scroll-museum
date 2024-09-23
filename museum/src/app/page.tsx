@@ -123,7 +123,7 @@ export default function Home() {
         />
         <div className="absolute left-[6rem] top-[14rem]">
           {!displayProfile ?
-            (<p className="text-[3rem] font-ten" onClick={handleDisplayProfile}>Type my profile.</p>) : (
+            (<p className="text-[3rem] font-ten hover:text-accent01 duration-500" onClick={handleDisplayProfile}>Type my profile.</p>) : (
             <p ref={profileRef} className="typing-item text-[2.8rem] font-ten leading-loose text-left font-bold">
               {dayjs(process.env.NEXT_PUBLIC_BRIDE_BIRTHDAY).format('YYYY年M月DD日')}生まれ<br />
               出身：{process.env.NEXT_PUBLIC_BRIDE_BIRTH_PLACE}<br />
@@ -140,11 +140,14 @@ export default function Home() {
           </a>
         </div>
       </section>
-
-      <section className="mt-[30rem]" id="section-end">
-        <h2>hoge</h2>
-      </section>
         
+      <section className="text-center text-[6rem] font-ten tracking-wider pt-[30rem]" id="section-end">
+        <p>Chapter 3</p>
+      </section>
+
+      <section className="text-center text-[6rem] font-ten tracking-wider pt-[30rem]" id="section-end">
+
+      </section>
     </main>
   );
 }
