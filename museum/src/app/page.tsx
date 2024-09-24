@@ -14,24 +14,34 @@ import dayjs from "dayjs";
 import Lenis from '@studio-freight/lenis'
 
 import CustomCursor from "./CustomCursor";
+import history03 from "../data/prod/history03.json";
 
 export default function Home() {
 
   const router = useRouter()
-  const [displayProfile, setDisplayProfile] = useState(false)
-  const profileRef = useRef<HTMLParagraphElement | null>(null)
 
   // プロフィール表示をクリック
+  const [displayProfile, setDisplayProfile] = useState(false)
+  const profileRef = useRef<HTMLParagraphElement | null>(null)
   const handleDisplayProfile = () => {
     setDisplayProfile(true)
   }
 
-  // プロフィールが表示されたらタイピングアニメーションを実行
+  // Our Historyをクリック
+  const [displayOurHistory, setDisplayOurHistory] = useState(false)
+  const ourHistoryRef = useRef<HTMLParagraphElement | null>(null)
+  const handleDisplayOurHistory = () => {
+    setDisplayOurHistory(true)
+  }
+
+  // プロフィールかOur Historyが表示されたらタイピングアニメーションを実行
   useEffect(() => {
     if (displayProfile && profileRef.current) {
       typeWriter(profileRef.current);
+    } else if (displayOurHistory && ourHistoryRef.current) {
+      typeWriter(ourHistoryRef.current);
     }
-  }, [displayProfile]);
+  }, [displayProfile, displayOurHistory]);
 
   // タイピング風アニメーション
   const typeWriter = (el: HTMLElement) => {
@@ -67,16 +77,30 @@ export default function Home() {
     router.push(`/detail?selection=${selection}`) // 選択した情報をURLのクエリパラメータに含める
   }
 
+  // Our Historyのフリップ
+  const [flipNumber, setFlipNumber] = useState(0)
+  const [flipButton, setFlipButton] = useState(true)
+
+  const handleFlipHistory = () => {
+    if (flipNumber < history03.length - 1) {
+      setFlipNumber(flipNumber + 1)
+      console.log('true')
+    } else if (flipNumber === history03.length - 1) {
+      setFlipButton(false)
+      console.log('false')
+    }
+    
+  }
+
   return (
     <main className="pt-36 pb-[80rem] bg-bg01 font-mono relative">
       <CustomCursor />
 
-      <p className="text-center text-[2.4rem] font-ten leading-3 tracking-widest">Our Profile and History</p>
-      <p className="absolute left-24 top-[60rem] text-[8.2rem] font-ten">生い立ちと<br />プロフィール</p>
-      <p className="absolute left-24 top-[60rem] text-[8.2rem] font-ten fade-in">生い立ちと<br />プロフィール</p>
+      <h1 className="text-center text-[3.2rem] font-ten leading-3 tracking-widest">Our Profile and History</h1>
+      <h2 className="absolute left-24 top-[60rem] text-[8.2rem] font-ten">生い立ちと<br />プロフィール</h2>
 
       <section className="text-center text-[6rem] font-ten tracking-wider mt-[100rem]" id="section-groom">
-        <p>Chapter 1</p>
+        <h3>Chapter 1</h3>
       </section>
 
       <section className="flex items-baseline relative" id="section-groom">
@@ -107,7 +131,7 @@ export default function Home() {
       </section>
 
       <section className="text-center text-[6rem] font-ten tracking-wider pt-[30rem]" id="section-bride">
-        <p>Chapter 2</p>
+        <h3>Chapter 2</h3>
       </section>
 
       <section className="relative mt-[30rem] flex">
@@ -142,11 +166,30 @@ export default function Home() {
       </section>
         
       <section className="text-center text-[6rem] font-ten tracking-wider pt-[30rem]" id="section-end">
-        <p>Chapter 3</p>
+        <h3>Chapter 3</h3>
       </section>
 
-      <section className="text-center text-[6rem] font-ten tracking-wider pt-[30rem]" id="section-end">
-
+      <section className="text-center text-[6rem] tracking-wider pt-[30rem]" id="section-end">
+        <div className="max-w-[1024px] mx-auto">
+          <ul>
+            {history03.map((item, index) => (
+              index === flipNumber && (
+                <li key={index} className="relative">
+                  <h4 className="tracking-wide text-[5rem] absolute left-1/2 -translate-x-1/2 -top-16 font-bold uppercase w-full font-cabin">History</h4>
+                  <p className="text-[2rem] font-ten absolute left-1/2 -translate-x-1/2 -top-32">{`[${item.date}]`}</p>
+                  <Image src={item.image} alt="" className="w-full border-8 border-white mb-20" width={400} height={300} />
+                  <p className="absolute -left-10 bottom-20 leading-none text-[7.8rem] font-ten">{`0${item.id}`}</p>
+                  {!displayOurHistory ? 
+                  <p className="text-3xl font-ten hover:text-accent01 duration-500" onClick={handleDisplayOurHistory}>
+                    Type our history.
+                  </p> : <p ref={ourHistoryRef} className="text-3xl font-ten typing-item !text-center">{item.text}</p>}
+                  
+                  {flipButton && <button className="absolute -right-16 bottom-24 text-[4rem] font-ten leading-none duration-300 hover:text-accent01 cursor-pointer" onClick={handleFlipHistory}>Flip</button>}
+              </li>
+              )
+            ))}
+          </ul>
+        </div>
       </section>
     </main>
   );
