@@ -84,12 +84,12 @@ export default function Home() {
   const handleFlipHistory = () => {
     if (flipNumber < history03.length - 1) {
       setFlipNumber(flipNumber + 1)
-      console.log('true')
-    } else if (flipNumber === history03.length - 1) {
-      setFlipButton(false)
-      console.log('false')
+      setDisplayOurHistory(false)
     }
-    
+
+    if(flipNumber === history03.length - 2) {
+      setFlipButton(false)
+    }
   }
 
   return (
@@ -177,7 +177,7 @@ export default function Home() {
                 <li key={index} className="relative">
                   <h4 className="tracking-wide text-[5rem] absolute left-1/2 -translate-x-1/2 -top-16 font-bold uppercase w-full font-cabin">History</h4>
                   <p className="text-[2rem] font-ten absolute left-1/2 -translate-x-1/2 -top-32">{`[${item.date}]`}</p>
-                  <Image src={item.image} alt="" className="w-full border-8 border-white mb-20" width={400} height={300} />
+                  <Image src={item.image} alt="" className="w-full block mx-auto border-8 border-white mb-20" width={400} height={300} />
                   <p className="absolute -left-10 bottom-20 leading-none text-[7.8rem] font-ten">{`0${item.id}`}</p>
                   {!displayOurHistory ? 
                   <p className="text-3xl font-ten hover:text-accent01 duration-500" onClick={handleDisplayOurHistory}>
