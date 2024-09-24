@@ -1,0 +1,37 @@
+[
+  {
+    "id": 1,
+    "image": "/dummy/img03.png",
+    "title": "",
+    "date": "2020-04-06",
+    "text": "交際をはじめました"
+  },
+  {
+    "id": 2,
+    "image": "/dummy/img03.png",
+    "title": "",
+    "date": "2021-07-04",
+    "text": "text"
+  },
+  {
+    "id": 3,
+    "image": "/dummy/img03.png",
+    "title": "",
+    "date": "2021-07-04",
+    "text": "text"
+  },
+  {
+    "id": 4,
+    "image": "/dummy/img03.png",
+    "title": "",
+    "date": "2022-04-06",
+    "text": "記念日に入籍しました"
+  },
+  {
+    "id": 5,
+    "image": "/dummy/img03.png",
+    "title": "",
+    "date": "2023-04-06",
+    "text": "結婚式"
+  }
+]
