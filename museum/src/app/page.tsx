@@ -92,6 +92,13 @@ export default function Home() {
     }
   }
 
+  // 1番目以降Flipを表示するときもタイピング風アニメーションで表示
+  useEffect(() => {
+    if (flipNumber !== 0 && ourHistoryRef.current) {
+      typeWriter(ourHistoryRef.current);
+    }
+  }, [flipNumber]);
+
   return (
     <main className="pt-36 pb-[80rem] bg-bg01 font-mono relative">
       <CustomCursor />
@@ -179,11 +186,24 @@ export default function Home() {
                   <p className="text-[2rem] font-ten absolute left-1/2 -translate-x-1/2 -top-32">{`[${item.date}]`}</p>
                   <Image src={item.image} alt="" className="w-full block mx-auto border-8 border-white mb-20" width={400} height={300} />
                   <p className="absolute -left-10 bottom-20 leading-none text-[7.8rem] font-ten">{`0${item.id}`}</p>
-                  {!displayOurHistory ? 
-                  <p className="text-3xl font-ten hover:text-accent01 duration-500" onClick={handleDisplayOurHistory}>
-                    Type our history.
-                  </p> : <p ref={ourHistoryRef} className="text-3xl font-ten typing-item !text-center">{item.text}</p>}
-                  
+                  {index === 0 ? (
+                    // 1枚目のフリップ
+                    !displayOurHistory ? (
+                      <p className="text-3xl font-ten hover:text-accent01 duration-500" onClick={handleDisplayOurHistory}>
+                        Type our history.
+                      </p>
+                    ) : (
+                      // Typeをクリック
+                      <p ref={ourHistoryRef} className="text-3xl font-ten typing-item !text-center">
+                        {item.text}
+                      </p>
+                    )
+                  ) : (
+                    // 2枚目以降のフリップ
+                    <p ref={ourHistoryRef} className="text-3xl font-ten typing-item !text-center">
+                      {item.text}
+                    </p>
+                  )}
                   {flipButton && <button className="absolute -right-16 bottom-24 text-[4rem] font-ten leading-none duration-300 hover:text-accent01 cursor-pointer" onClick={handleFlipHistory}>Flip</button>}
               </li>
               )
