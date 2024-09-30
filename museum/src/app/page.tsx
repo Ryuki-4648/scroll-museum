@@ -99,6 +99,24 @@ export default function Home() {
     }
   }, [flipNumber]);
 
+  useEffect(() => {
+    const groomListItems = document.querySelectorAll('.fade-in');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('fade-in-active');
+        }
+      });
+    }, { threshold: 0.1 });
+  
+    groomListItems.forEach((item) => observer.observe(item));
+  
+    return () => {
+      groomListItems.forEach((item) => observer.unobserve(item));
+    };
+  }, []);
+  
+
   return (
     <main className="pt-36 pb-[80rem] bg-bg01 font-mono relative">
       <CustomCursor />
@@ -126,13 +144,13 @@ export default function Home() {
         </p>
         <div className="absolute ml-[55rem] bottom-[18rem]">
           <ul className="text-[2.8rem] font-ten leading-loose">
-            <li>{dayjs(process.env.NEXT_PUBLIC_GROOM_BIRTHDAY).format('YYYY年M月DD日')}生まれ</li>
-            <li>出身：{process.env.NEXT_PUBLIC_GROOM_BIRTH_PLACE}</li>
-            <li>血液型：{process.env.NEXT_PUBLIC_GROOM_BLOOD_TYPE}</li>
-            <li>職業：{process.env.NEXT_PUBLIC_GROOM_OCCUPATION}</li>
-            <li>趣味：{process.env.NEXT_PUBLIC_GROOM_HOBBY}</li>
-            <li>好きなもの：{process.env.NEXT_PUBLIC_GROOM_FAVORITE01}</li>
-            <li>{process.env.NEXT_PUBLIC_GROOM_FAVORITE02}</li>
+            <li className="opacity-0 transition-opacity duration-1000 fade-in">{dayjs(process.env.NEXT_PUBLIC_GROOM_BIRTHDAY).format('YYYY年M月DD日')}生まれ</li>
+            <li className="opacity-0 transition-opacity duration-1000 fade-in">出身：{process.env.NEXT_PUBLIC_GROOM_BIRTH_PLACE}</li>
+            <li className="opacity-0 transition-opacity duration-1000 fade-in">血液型：{process.env.NEXT_PUBLIC_GROOM_BLOOD_TYPE}</li>
+            <li className="opacity-0 transition-opacity duration-1000 fade-in">職業：{process.env.NEXT_PUBLIC_GROOM_OCCUPATION}</li>
+            <li className="opacity-0 transition-opacity duration-1000 fade-in">趣味：{process.env.NEXT_PUBLIC_GROOM_HOBBY}</li>
+            <li className="opacity-0 transition-opacity duration-1000 fade-in">好きなもの：{process.env.NEXT_PUBLIC_GROOM_FAVORITE01}</li>
+            <li className="opacity-0 transition-opacity duration-1000 fade-in">{process.env.NEXT_PUBLIC_GROOM_FAVORITE02}</li>
           </ul>
         </div>
       </section>
