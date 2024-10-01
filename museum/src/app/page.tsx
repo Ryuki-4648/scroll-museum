@@ -15,6 +15,7 @@ import Lenis from '@studio-freight/lenis'
 
 import CustomCursor from "./CustomCursor";
 import history03 from "../data/prod/history03.json";
+import ChapterTitle from "./components/ChapterTitle";
 
 export default function Home() {
 
@@ -99,12 +100,13 @@ export default function Home() {
     }
   }, [flipNumber]);
 
+  /* プロフィールの文言：スクロール領域内に入ったらフェードイン表示 */
   useEffect(() => {
     const groomListItems = document.querySelectorAll('.fade-in');
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          entry.target.classList.add('fade-in-active');
+          entry.target.classList.add('is-visible');
         }
       });
     }, { threshold: 0.1 });
@@ -112,7 +114,7 @@ export default function Home() {
     groomListItems.forEach((item) => observer.observe(item));
   
     return () => {
-      groomListItems.forEach((item) => observer.unobserve(item));
+      groomListItems.forEach((item) => observer.unobserve(item)); //  クリーンアップ処理
     };
   }, []);
   
@@ -121,11 +123,11 @@ export default function Home() {
     <main className="pt-36 pb-[80rem] bg-bg01 font-mono relative">
       <CustomCursor />
 
-      <h1 className="text-center text-[3.2rem] font-ten leading-3 tracking-widest">Our Profile and History</h1>
+      <h1 className="text-center text-[3.6rem] font-ten leading-3 tracking-widest">Our Profile and History</h1>
       <h2 className="absolute left-24 top-[60rem] text-[8.2rem] font-ten">生い立ちと<br />プロフィール</h2>
 
-      <section className="text-center text-[6rem] font-ten tracking-wider mt-[100rem]" id="section-groom">
-        <h3>Chapter 1</h3>
+      <section className="mt-[100rem]" id="section-groom">
+        <ChapterTitle>Chapter 1</ChapterTitle>
       </section>
 
       <section className="flex items-baseline relative" id="section-groom">
@@ -144,19 +146,19 @@ export default function Home() {
         </p>
         <div className="absolute ml-[55rem] bottom-[18rem]">
           <ul className="text-[2.8rem] font-ten leading-loose">
-            <li className="opacity-0 transition-opacity duration-1000 fade-in">{dayjs(process.env.NEXT_PUBLIC_GROOM_BIRTHDAY).format('YYYY年M月DD日')}生まれ</li>
-            <li className="opacity-0 transition-opacity duration-1000 fade-in">出身：{process.env.NEXT_PUBLIC_GROOM_BIRTH_PLACE}</li>
-            <li className="opacity-0 transition-opacity duration-1000 fade-in">血液型：{process.env.NEXT_PUBLIC_GROOM_BLOOD_TYPE}</li>
-            <li className="opacity-0 transition-opacity duration-1000 fade-in">職業：{process.env.NEXT_PUBLIC_GROOM_OCCUPATION}</li>
-            <li className="opacity-0 transition-opacity duration-1000 fade-in">趣味：{process.env.NEXT_PUBLIC_GROOM_HOBBY}</li>
-            <li className="opacity-0 transition-opacity duration-1000 fade-in">好きなもの：{process.env.NEXT_PUBLIC_GROOM_FAVORITE01}</li>
-            <li className="opacity-0 transition-opacity duration-1000 fade-in">{process.env.NEXT_PUBLIC_GROOM_FAVORITE02}</li>
+            <li className="opacity-0 transition-opacity duration-[2500ms] fade-in">{dayjs(process.env.NEXT_PUBLIC_GROOM_BIRTHDAY).format('YYYY年M月DD日')}生まれ</li>
+            <li className="opacity-0 transition-opacity duration-[2500ms] fade-in">出身：{process.env.NEXT_PUBLIC_GROOM_BIRTH_PLACE}</li>
+            <li className="opacity-0 transition-opacity duration-[2500ms] fade-in">血液型：{process.env.NEXT_PUBLIC_GROOM_BLOOD_TYPE}</li>
+            <li className="opacity-0 transition-opacity duration-[2500ms] fade-in">職業：{process.env.NEXT_PUBLIC_GROOM_OCCUPATION}</li>
+            <li className="opacity-0 transition-opacity duration-[2500ms] fade-in">趣味：{process.env.NEXT_PUBLIC_GROOM_HOBBY}</li>
+            <li className="opacity-0 transition-opacity duration-[2500ms] fade-in">好きなもの：{process.env.NEXT_PUBLIC_GROOM_FAVORITE01}</li>
+            <li className="opacity-0 transition-opacity duration-[2500ms] fade-in">{process.env.NEXT_PUBLIC_GROOM_FAVORITE02}</li>
           </ul>
         </div>
       </section>
 
-      <section className="text-center text-[6rem] font-ten tracking-wider pt-[30rem]" id="section-bride">
-        <h3>Chapter 2</h3>
+      <section className="pt-[30rem]" id="section-bride">
+        <ChapterTitle>Chapter 2</ChapterTitle>
       </section>
 
       <section className="relative mt-[30rem] flex">
@@ -190,8 +192,8 @@ export default function Home() {
         </div>
       </section>
         
-      <section className="text-center text-[6rem] font-ten tracking-wider pt-[30rem]" id="section-end">
-        <h3>Chapter 3</h3>
+      <section className="pt-[30rem]" id="section-end">
+        <ChapterTitle>Chapter 3</ChapterTitle>
       </section>
 
       <section className="text-center text-[6rem] tracking-wider pt-[30rem]" id="section-end">
